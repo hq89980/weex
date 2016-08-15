@@ -205,6 +205,7 @@
 package com.taobao.weex.utils;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
@@ -232,6 +233,10 @@ public class WXViewUtils {
    */
   public static final int OPAQUE = -1;
   private static final boolean mUseWebPx = false;
+  /**
+   * Use DIP for css layout unit.
+   */
+  public static boolean mUseDP = true;
 
   public static int getWeexHeight(String instanceId) {
     WXSDKInstance instance = WXSDKManager.getInstance().getSDKInstance(instanceId);
@@ -330,7 +335,9 @@ public class WXViewUtils {
     if (Float.isNaN(pxValue)) {
       return pxValue;
     }
-    if (mUseWebPx) {
+    if (mUseDP) {
+      return toPixelFromDIP(pxValue);
+    } else if (mUseWebPx) {
       return (float) Math.rint(pxValue);
     } else {
       float realPx = (pxValue * getScreenWidth() / WXEnvironment.sDefaultWidth);
@@ -345,7 +352,9 @@ public class WXViewUtils {
     if (Float.isNaN(pxValue)) {
       return pxValue;
     }
-    if (mUseWebPx) {
+    if (mUseDP) {
+      return toPixelFromDIP(pxValue);
+    } else if (mUseWebPx) {
       return (float) Math.rint(pxValue);
     } else {
       return pxValue * WXEnvironment.sDefaultWidth / getScreenWidth();
@@ -353,7 +362,10 @@ public class WXViewUtils {
   }
 
   public static int getRealPxByWidth2(float pxValue) {
-    if (mUseWebPx) {
+    if (mUseDP) {
+      float realPx = toPixelFromDIP(pxValue);
+      return realPx > 0.005 && realPx < 1 ? 1 : (int) realPx - 1;
+    } else if (mUseWebPx) {
       return (int) pxValue;
     } else {
       float realPx = (pxValue * getScreenWidth() / WXEnvironment.sDefaultWidth);
@@ -373,7 +385,9 @@ public class WXViewUtils {
     if (pxValue < -1.9999 && pxValue > -2.005) {
       return Float.NaN;
     }
-    if (mUseWebPx) {
+    if (mUseDP) {
+      return toDIPFromPixel(pxValue);
+    } else if (mUseWebPx) {
       return pxValue;
     } else {
       float realPx = (pxValue * WXEnvironment.sDefaultWidth / getScreenWidth());
@@ -381,6 +395,13 @@ public class WXViewUtils {
     }
   }
 
+  public static float toPixelFromDIP(float value) {
+    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, WXEnvironment.getApplication().getResources().getDisplayMetrics());
+  }
+
+  public static float toDIPFromPixel(float value) {
+    return value / WXEnvironment.getApplication().getResources().getDisplayMetrics().density;
+  }
 
   /**
    * Convert dp to px
