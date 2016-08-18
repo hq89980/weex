@@ -205,7 +205,7 @@
 package com.taobao.weex.ui.view.refresh.wrapper;
 
 import android.content.Context;
-import android.support.v7.widget.OrientationHelper;
+import android.mini.support.v7.widget.OrientationHelper;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;

@@ -127,7 +127,7 @@
  */
 package com.taobao.weex.common;
 
-import android.support.v7.widget.RecyclerView;
+import android.mini.support.v7.widget.RecyclerView;
 import android.view.View;
 
 

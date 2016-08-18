@@ -204,7 +204,7 @@
  */
 package com.taobao.weex.appfram.storage;
 
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.taobao.weex.WXSDKEngine;

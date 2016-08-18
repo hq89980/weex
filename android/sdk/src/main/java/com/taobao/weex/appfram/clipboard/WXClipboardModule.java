@@ -210,7 +210,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 
 import com.taobao.weex.bridge.JSCallback;
 import com.taobao.weex.common.WXModule;

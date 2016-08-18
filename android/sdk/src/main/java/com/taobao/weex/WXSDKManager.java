@@ -128,7 +128,7 @@
 package com.taobao.weex;
 
 import android.os.Looper;
-import android.support.annotation.NonNull;
+import android.mini.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.taobao.weex.adapter.DefaultWXHttpAdapter;

@@ -204,7 +204,7 @@
  */
 package com.taobao.weex.appfram.clipboard;
 
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 
 import com.taobao.weex.bridge.JSCallback;
 

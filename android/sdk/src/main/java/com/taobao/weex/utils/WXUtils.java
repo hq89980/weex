@@ -208,7 +208,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Looper;
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.taobao.weex.WXEnvironment;

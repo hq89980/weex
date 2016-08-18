@@ -113,7 +113,7 @@ package com.taobao.weex;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.content.LocalBroadcastManager;
+import android.mini.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.util.Log;
 

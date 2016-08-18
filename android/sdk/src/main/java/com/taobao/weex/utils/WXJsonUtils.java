@@ -205,7 +205,7 @@
 package com.taobao.weex.utils;
 
 
-import android.support.annotation.NonNull;
+import android.mini.support.annotation.NonNull;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.taobao.weex.WXEnvironment;

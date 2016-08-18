@@ -204,7 +204,7 @@
  */
 package com.taobao.weex.dom;
 
-import android.support.v4.util.ArrayMap;
+import android.mini.support.v4.util.ArrayMap;
 
 import com.taobao.weex.common.WXDomPropConstant;
 
