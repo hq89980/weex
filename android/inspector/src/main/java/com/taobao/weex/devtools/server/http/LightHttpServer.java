@@ -10,7 +10,7 @@
 package com.taobao.weex.devtools.server.http;
 
 import android.net.Uri;
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 
 import com.taobao.weex.devtools.server.LeakyBufferedInputStream;
 import com.taobao.weex.devtools.server.SocketLike;

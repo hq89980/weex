@@ -10,7 +10,7 @@
 package com.taobao.weex.devtools.inspector.protocol.module;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 import android.util.Log;
 
 import com.taobao.weex.devtools.common.ProcessUtil;

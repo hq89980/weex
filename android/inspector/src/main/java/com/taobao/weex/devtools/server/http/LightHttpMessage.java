@@ -9,7 +9,7 @@
 
 package com.taobao.weex.devtools.server.http;
 
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 
 import java.util.ArrayList;
 

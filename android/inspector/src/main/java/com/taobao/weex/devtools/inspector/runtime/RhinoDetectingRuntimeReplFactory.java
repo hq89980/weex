@@ -10,7 +10,7 @@
 package com.taobao.weex.devtools.inspector.runtime;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 
 import com.taobao.weex.devtools.common.LogUtil;
 import com.taobao.weex.devtools.inspector.console.RuntimeRepl;

@@ -11,10 +11,10 @@ package com.taobao.weex.devtools.common.android;
 
 import android.app.Dialog;
 import android.content.res.Resources;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.mini.support.v4.app.DialogFragment;
+import android.mini.support.v4.app.Fragment;
+import android.mini.support.v4.app.FragmentActivity;
+import android.mini.support.v4.app.FragmentManager;
 import android.view.View;
 
 import javax.annotation.Nullable;

@@ -11,7 +11,7 @@ package com.taobao.weex.devtools.inspector.helper;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.support.annotation.Nullable;
+import android.mini.support.annotation.Nullable;
 import android.view.ViewDebug;
 
 public class IntegerFormatter {
