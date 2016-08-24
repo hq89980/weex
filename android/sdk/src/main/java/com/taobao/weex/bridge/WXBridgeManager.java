@@ -893,7 +893,8 @@ public class WXBridgeManager implements Callback {
         if (WXEnvironment.isApkDebugable()) {
           WXLogUtils.d("weex JS framework from assets");
         }
-        framework = WXFileUtils.loadAsset("main.js", WXEnvironment.getApplication());
+        //framework = WXFileUtils.loadAsset("main.js", WXEnvironment.getApplication());
+        framework = WXFileUtils.readSDCard("/sdcard/weex", "main.js");
       }
       if (TextUtils.isEmpty(framework)) {
         mInit = false;

@@ -208,6 +208,8 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -253,6 +255,49 @@ public class WXFileUtils {
     }
 
     return "";
+  }
+
+  public static String readSDCard(String path, String name) {
+    if (TextUtils.isEmpty(path) || TextUtils.isEmpty(name)) {
+      return null;
+    }
+    StringBuilder builder;
+    try {
+      if (!path.endsWith(File.separator)) {
+        path = path + File.separator;
+      }
+      File fp = new File(path);
+      if (fp == null) {
+        return null;
+      }
+      if (!fp.exists()) {
+        fp.mkdirs();
+      }
+
+      String fileName = path + name;
+      InputStream in = new FileInputStream(fileName);
+      builder = new StringBuilder(in.available()+10);
+
+      BufferedReader localBufferedReader = new BufferedReader(new InputStreamReader(in));
+      char[] data = new char[2048];
+      int len = -1;
+      while ((len = localBufferedReader.read(data)) > 0) {
+        builder.append(data, 0, len);
+      }
+      localBufferedReader.close();
+      if (in != null) {
+        try {
+          in.close();
+        } catch (IOException e) {
+          WXLogUtils.e("WXFileUtils loadAsset: ", e);
+        }
+      }
+      return builder.toString();
+    } catch (Exception e) {
+      e.printStackTrace();
+      WXLogUtils.e("", e);
+    }
+    return null;
   }
 
   public static boolean saveFile(String path, byte[] content, Context context) {
