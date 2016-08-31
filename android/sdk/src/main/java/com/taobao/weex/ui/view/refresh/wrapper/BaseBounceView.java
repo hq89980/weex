@@ -212,6 +212,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.taobao.weex.common.WXDomPropConstant;
 import com.taobao.weex.ui.component.WXComponent;
 import com.taobao.weex.ui.view.refresh.core.WXRefreshView;
 import com.taobao.weex.ui.view.refresh.core.WXSwipeLayout;
@@ -303,7 +304,7 @@ public abstract class BaseBounceView<T extends View> extends FrameLayout {
             if (swipeLayout.getHeaderView() != null) {
                 swipeLayout.setRefreshHeight((int) refresh.getDomObject().getLayoutHeight());
 
-                String colorStr = (String) refresh.getDomObject().style.get("backgroundColor");
+                String colorStr = (String) refresh.getDomObject().style.get(WXDomPropConstant.WX_BACKGROUNDCOLOR);
                 String bgColor = WXUtils.getString(colorStr, null);
 
                 if (bgColor != null) {
@@ -329,7 +330,7 @@ public abstract class BaseBounceView<T extends View> extends FrameLayout {
             if (swipeLayout.getFooterView() != null) {
                 swipeLayout.setLoadingHeight((int) loading.getDomObject().getLayoutHeight());
 
-                String colorStr = (String) loading.getDomObject().style.get("backgroundColor");
+                String colorStr = (String) loading.getDomObject().style.get(WXDomPropConstant.WX_BACKGROUNDCOLOR);
                 String bgColor = WXUtils.getString(colorStr, null);
 
                 if (bgColor != null) {

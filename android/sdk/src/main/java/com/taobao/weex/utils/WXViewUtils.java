@@ -236,7 +236,7 @@ public class WXViewUtils {
   /**
    * Use DIP for css layout unit.
    */
-  public static boolean mUseDP = false;
+  public static boolean mUseDP = true;
 
   public static int getWeexHeight(String instanceId) {
     WXSDKInstance instance = WXSDKManager.getInstance().getSDKInstance(instanceId);
