@@ -225,6 +225,7 @@ public class WXSDKEngine {
       public void run() {
         long start = System.currentTimeMillis();
         WXSDKManager sm = WXSDKManager.getInstance();
+        String framework = null;
         if(config != null ) {
           sm.setIWXHttpAdapter(config.getHttpAdapter());
           sm.setIWXImgLoaderAdapter(config.getImgAdapter());
@@ -234,13 +235,14 @@ public class WXSDKEngine {
           if(config.getDebugAdapter()!=null){
             config.getDebugAdapter().initDebug(application);
           }
+          framework = config.getFramework();
         }
         WXSoInstallMgrSdk.init(application);
         boolean isSoInitSuccess = WXSoInstallMgrSdk.initSo(V8_SO_NAME, 1, config!=null?config.getUtAdapter():null);
         if (!isSoInitSuccess) {
           return;
         }
-        sm.initScriptsFramework(null);
+        sm.initScriptsFramework(framework);
 
         WXEnvironment.sSDKInitExecuteTime = System.currentTimeMillis() - start;
         WXLogUtils.renderPerformanceLog("SDKInitExecuteTime", WXEnvironment.sSDKInitExecuteTime);
