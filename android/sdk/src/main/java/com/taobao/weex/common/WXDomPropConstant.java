@@ -365,4 +365,6 @@ public class WXDomPropConstant {
   //web
   public static final String WX_ATTR_SHOW_LOADING = "show-loading";
 
+  //image
+  public static final String WX_FILTER_COLOR = "filterColor";
 }

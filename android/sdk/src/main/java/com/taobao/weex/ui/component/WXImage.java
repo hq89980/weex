@@ -205,6 +205,7 @@
 package com.taobao.weex.ui.component;
 
 import android.content.Context;
+import android.graphics.LightingColorFilter;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
@@ -231,7 +232,8 @@ import java.util.Map;
  */
 @Component(lazyload = false)
 public class WXImage extends WXComponent<ImageView> {
-
+    private static final String NULL_FILTER = "null";
+    private static Map<Integer, LightingColorFilter> sColorFilter;
     public static class Ceator implements ComponentCreator {
         public WXComponent createInstance(WXSDKInstance instance, WXDomObject node, WXVContainer parent, boolean lazy) throws IllegalAccessException, InvocationTargetException, InstantiationException {
             return new WXImage(instance,node,parent,lazy);
@@ -313,6 +315,9 @@ public class WXImage extends WXComponent<ImageView> {
                 if (src != null)
                     setSrc(src);
                 return true;
+            case WXDomPropConstant.WX_FILTER_COLOR:
+                String filterColor = WXUtils.getString(param,null);
+                setFilterColor(filterColor);
         }
         return super.setProperty(key, param);
     }
@@ -381,6 +386,23 @@ public class WXImage extends WXComponent<ImageView> {
         if (imgLoaderAdapter != null) {
             imgLoaderAdapter.setImage(src, getHostView(),
                     mDomObj.attr.getImageQuality(), imageStrategy);
+        }
+    }
+
+    private void setFilterColor(String filterColor) {
+        if (filterColor == null || filterColor.trim().length() == 0 || NULL_FILTER.equalsIgnoreCase(filterColor)) {
+            mHost.clearColorFilter();
+        } else {
+            if (sColorFilter == null) {
+                sColorFilter = new HashMap<Integer, LightingColorFilter>();
+            }
+            int colorInt = WXResourceUtils.getColor(filterColor);
+            LightingColorFilter filter = sColorFilter.get(colorInt);
+            if (filter == null) {
+                filter = new LightingColorFilter(colorInt, 0x00000000);
+                sColorFilter.put(colorInt, filter);
+            }
+            mHost.setColorFilter(filter);
         }
     }
 }
