@@ -396,6 +396,8 @@ class WXDomStatement {
     WXLogUtils.d("Batch","animation size :" +animations.size());
     parseAnimation();
 
+    addExtraTask(mInstanceId);
+
     WXLogUtils.d("Batch","task size :" +mNormalTasks.size());
     int count = mNormalTasks.size();
     for (int i = 0; i < count && !mDestroy; ++i) {
@@ -1336,5 +1338,19 @@ class WXDomStatement {
   static class AddDomInfo {
 
     public WXComponent component;
+  }
+
+  private void addExtraTask(final String instanceId) {
+      mNormalTasks.add(new IWXRenderTask() {
+          @Override
+          public void execute() {
+              mWXRenderManager.executeExtraTasks(instanceId);
+          }
+
+          @Override
+          public String toString() {
+              return "addExtraTask instanceId:" + instanceId;
+          }
+      });
   }
 }

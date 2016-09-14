@@ -207,6 +207,7 @@ package com.taobao.weex.ui;
 import android.graphics.Color;
 import android.mini.support.annotation.NonNull;
 import android.mini.support.annotation.Nullable;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
@@ -230,6 +231,7 @@ import com.taobao.weex.utils.WXLogUtils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Class for rendering view. Method in this class should be run in main thread.
@@ -245,6 +247,8 @@ class WXRenderStatement {
    * The container for weex root view.
    */
   private WXVContainer mGodComponent;
+
+  private Map<String, Runnable> mExtraTasks = new HashMap<String, Runnable>();
 
   public WXRenderStatement(WXSDKInstance instance) {
     mWXSDKInstance = instance;
@@ -560,5 +564,16 @@ class WXRenderStatement {
 
   void startAnimation(@NonNull String ref, @NonNull WXAnimationBean animationBean, @Nullable String callBack) {
     WXAnimationModule.startAnimation(mWXSDKInstance, mRegistry.get(ref), animationBean, callBack);
+  }
+
+  void addExtraTask(String ref, Runnable task) {
+    mExtraTasks.put(ref, task);
+  }
+
+  void executeExtraTasks() {
+    for (Runnable run : mExtraTasks.values()) {
+      run.run();
+    }
+    mExtraTasks.clear();
   }
 }

@@ -462,4 +462,20 @@ public class WXRenderManager {
     }
     return instances;
   }
+
+  public void executeExtraTasks(final String instanceId) {
+      WXRenderStatement statement = mRegistries.get(instanceId);
+      if (statement == null) {
+          return;
+      }
+      statement.executeExtraTasks();
+  }
+
+  public void addExtraTask(String instanceId, String ref, Runnable task) {
+      WXRenderStatement statement = mRegistries.get(instanceId);
+      if (statement == null) {
+          return;
+      }
+      statement.addExtraTask(ref, task);
+  }
 }
