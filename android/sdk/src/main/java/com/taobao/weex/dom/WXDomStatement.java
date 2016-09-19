@@ -266,6 +266,7 @@ class WXDomStatement {
   private volatile boolean mDirty;
   private boolean mDestroy;
   private Map<String, AddDomInfo> mAddDom = new HashMap<>();
+  private boolean mHasExtraTask;
 
   /**
    * Create an instance of {@link WXDomStatement},
@@ -396,7 +397,7 @@ class WXDomStatement {
     WXLogUtils.d("Batch","animation size :" +animations.size());
     parseAnimation();
 
-    addExtraTask(mInstanceId);
+    addExtraTask();
 
     WXLogUtils.d("Batch","task size :" +mNormalTasks.size());
     int count = mNormalTasks.size();
@@ -1340,17 +1341,22 @@ class WXDomStatement {
     public WXComponent component;
   }
 
-  private void addExtraTask(final String instanceId) {
+  private void addExtraTask() {
+    if (mHasExtraTask) {
       mNormalTasks.add(new IWXRenderTask() {
-          @Override
-          public void execute() {
-              mWXRenderManager.executeExtraTasks(instanceId);
-          }
-
-          @Override
-          public String toString() {
-              return "addExtraTask instanceId:" + instanceId;
-          }
+        @Override
+        public void execute() {
+          mWXRenderManager.executeExtraTasks(mInstanceId);
+        }
+        @Override
+        public String toString() {
+          return "addExtraTask instanceId:" + mInstanceId;
+        }
       });
+    }
+  }
+
+  void setExtraTask(boolean hasExtraTask) {
+    mHasExtraTask = hasExtraTask;
   }
 }

@@ -576,4 +576,15 @@ public final class WXDomManager {
     String name = jsonObject.getString(WXConst.FONT_FAMILY);
     return new FontDO(name, src);
   }
+
+  public void setExtraTask(String instanceId, boolean hasExtraTask) {
+    if (!isDomThread()) {
+      throw new WXRuntimeException("setExtraTask operation must be done in dom thread");
+    }
+    WXDomStatement statement = mDomRegistries.get(instanceId);
+    if (statement == null) {
+      return;
+    }
+    statement.setExtraTask(hasExtraTask);
+  }
 }

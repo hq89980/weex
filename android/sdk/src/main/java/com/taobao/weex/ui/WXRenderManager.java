@@ -464,6 +464,9 @@ public class WXRenderManager {
   }
 
   public void executeExtraTasks(final String instanceId) {
+      if (!WXUtils.isUiThread()) {
+          throw new WXRuntimeException("[WXRenderManager] executeExtraTasks can only be called in main thread");
+      }
       WXRenderStatement statement = mRegistries.get(instanceId);
       if (statement == null) {
           return;
@@ -472,6 +475,9 @@ public class WXRenderManager {
   }
 
   public void addExtraTask(String instanceId, String ref, Runnable task) {
+      if (!WXUtils.isUiThread()) {
+          throw new WXRuntimeException("[WXRenderManager] addExtraTask can only be called in main thread");
+      }
       WXRenderStatement statement = mRegistries.get(instanceId);
       if (statement == null) {
           return;
