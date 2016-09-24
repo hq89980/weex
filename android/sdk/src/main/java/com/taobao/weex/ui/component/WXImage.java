@@ -232,7 +232,7 @@ import java.util.Map;
  */
 @Component(lazyload = false)
 public class WXImage extends WXComponent<ImageView> {
-    private static final String NULL_FILTER = "null";
+    private static final String NONE_FILTER = "none";
     private static Map<Integer, LightingColorFilter> sColorFilter;
     public static class Ceator implements ComponentCreator {
         public WXComponent createInstance(WXSDKInstance instance, WXDomObject node, WXVContainer parent, boolean lazy) throws IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -390,7 +390,7 @@ public class WXImage extends WXComponent<ImageView> {
     }
 
     private void setFilterColor(String filterColor) {
-        if (filterColor == null || filterColor.trim().length() == 0 || NULL_FILTER.equalsIgnoreCase(filterColor)) {
+        if (filterColor == null || filterColor.trim().length() == 0 || NONE_FILTER.equalsIgnoreCase(filterColor)) {
             mHost.clearColorFilter();
         } else {
             if (sColorFilter == null) {
