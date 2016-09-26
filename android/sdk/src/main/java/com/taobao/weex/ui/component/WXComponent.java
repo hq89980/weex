@@ -1058,4 +1058,11 @@ public abstract class  WXComponent<T extends View> implements IWXObject, IWXActi
       return hasScrollParent(component.getParent());
     }
   }
+
+  @WXComponentProp(name = WXDomPropConstant.WX_ATTR_VIEW_ID)
+  public void setViewID(String viewID) {
+    if (mHost != null && viewID != null) {
+      mHost.setTag(viewID);
+    }
+  }
 }

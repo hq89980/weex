@@ -367,4 +367,6 @@ public class WXDomPropConstant {
 
   //image
   public static final String WX_FILTER_COLOR = "filterColor";
+
+  public static final String WX_ATTR_VIEW_ID = "viewid";
 }
