@@ -181,6 +181,12 @@ import java.util.Set;
  */
 public abstract class  WXComponent<T extends View> implements IWXObject, IWXActivityStateListener {
 
+  public static final String PROP_FIXED_SIZE = "fixedSize";
+  public static final String PROP_FS_MATCH_PARENT = "m";
+  public static final String PROP_FS_WRAP_CONTENT = "w";
+
+  private int mFixedProp = 0;
+
   public static final int HORIZONTAL = 0;
   public static final int VERTICAL = 1;
   public static int mComponentNum = 0;
@@ -205,6 +211,7 @@ public abstract class  WXComponent<T extends View> implements IWXObject, IWXActi
   private WXGesture wxGesture;
   private IFComponentHolder mHolder;
   private boolean isUsing = false;
+
 
   @Deprecated
   public WXComponent(WXSDKInstance instance, WXDomObject dom, WXVContainer parent, String instanceId, boolean isLazy) {
@@ -438,8 +445,14 @@ public abstract class  WXComponent<T extends View> implements IWXObject, IWXActi
    */
   protected MeasureOutput measure(int width, int height) {
     MeasureOutput measureOutput = new MeasureOutput();
-    measureOutput.width = width;
-    measureOutput.height = height;
+
+    if (mFixedProp != 0) {
+      measureOutput.width = mFixedProp;
+      measureOutput.height = mFixedProp;
+    } else {
+      measureOutput.width = width;
+      measureOutput.height = height;
+    }
     return measureOutput;
   }
 
@@ -535,6 +548,10 @@ public abstract class  WXComponent<T extends View> implements IWXObject, IWXActi
         String visibility = WXUtils.getString(param,null);
         if (visibility != null)
           setVisibility(visibility);
+        return true;
+      case PROP_FIXED_SIZE:
+        String fixedSize = WXUtils.getString(param, PROP_FS_MATCH_PARENT);
+        setFixedSize(fixedSize);
         return true;
       default:
         return false;
@@ -1063,6 +1080,30 @@ public abstract class  WXComponent<T extends View> implements IWXObject, IWXActi
   public void setViewID(String viewID) {
     if (mHost != null && viewID != null) {
       mHost.setTag(viewID);
+    }
+  }
+
+  /**
+    * Avoid large size view fail in GPU-Animation.
+    * @param fixedSize
+  */
+  private void setFixedSize(String fixedSize) {
+    if (PROP_FS_MATCH_PARENT.equals(fixedSize)) {
+      mFixedProp = ViewGroup.LayoutParams.MATCH_PARENT;
+    } else if (PROP_FS_WRAP_CONTENT.equals(fixedSize)) {
+      mFixedProp = ViewGroup.LayoutParams.WRAP_CONTENT;
+    } else {
+      mFixedProp = 0;
+      return;
+    }
+
+    if(mHost != null){
+      ViewGroup.LayoutParams layoutParams = mHost.getLayoutParams();
+      if (layoutParams != null) {
+        layoutParams.height = mFixedProp;
+        layoutParams.width = mFixedProp;
+        mHost.setLayoutParams(layoutParams);
+      }
     }
   }
 }
