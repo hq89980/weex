@@ -227,6 +227,7 @@ public class WXSDKEngine {
         WXSDKManager sm = WXSDKManager.getInstance();
         String framework = null;
         if(config != null ) {
+          sm.onSDKEngineInitialize();
           sm.setIWXHttpAdapter(config.getHttpAdapter());
           sm.setIWXImgLoaderAdapter(config.getImgAdapter());
           sm.setIWXUserTrackAdapter(config.getUtAdapter());

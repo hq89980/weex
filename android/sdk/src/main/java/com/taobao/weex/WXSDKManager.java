@@ -131,6 +131,7 @@ import android.os.Looper;
 import android.mini.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.taobao.weex.IWXStatisticsListener;
 import com.taobao.weex.adapter.DefaultWXHttpAdapter;
 import com.taobao.weex.adapter.IWXDebugAdapter;
 import com.taobao.weex.adapter.IWXHttpAdapter;
@@ -171,6 +172,7 @@ public class WXSDKManager {
   private IActivityNavBarSetter mActivityNavBarSetter;
 
   private IWXStorageAdapter mIWXStorageAdapter;
+  private IWXStatisticsListener mStatisticsListener;
 
   private WXSDKManager() {
     mWXRenderManager = new WXRenderManager();
@@ -187,6 +189,20 @@ public class WXSDKManager {
       }
     }
     return sManager;
+  }
+
+  public void registerStatisticsListener(IWXStatisticsListener listener) {
+    mStatisticsListener = listener;
+  }
+
+  public IWXStatisticsListener getWXStatisticsListener() {
+    return mStatisticsListener;
+  }
+
+  public void onSDKEngineInitialize() {
+    if (mStatisticsListener != null) {
+      mStatisticsListener.onSDKEngineInitialize();
+    }
   }
 
   public IActivityNavBarSetter getActivityNavBarSetter() {
